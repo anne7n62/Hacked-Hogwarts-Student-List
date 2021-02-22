@@ -1,0 +1,204 @@
+/* 1. */
+/* 2. */
+
+/*ALL*************************/
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "PT Sans", sans-serif;
+  background-color: rgb(250, 229, 201);
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 25px;
+}
+
+/*HEADER*************************/
+
+header {
+  padding: 20px 0px 20px 0px;
+  display: flex;
+  justify-content: center;
+  border-bottom: black 1px solid;
+}
+
+#logo {
+  display: inline-block;
+  float: left;
+}
+
+#header_title {
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+/*NAV****************************/
+nav {
+  border-bottom: black 1px solid;
+  display: flex;
+  justify-content: space-around;
+}
+
+select {
+  margin-bottom: 0;
+  text-transform: uppercase;
+  width: 33%;
+  font-size: 25px;
+  height: 55px;
+  line-height: 15px;
+  color: #0a0a0a;
+  padding: 2px 0px 2px 0px;
+  text-align: center;
+  -webkit-appearance: none;
+  border: 0px solid #0a0a0a;
+  background-color: rgba(36, 30, 30, 0.06);
+  border-right: 1px solid black;
+}
+
+/*MAIN***************************/
+main {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+/*SECTION COUNT******************/
+#count {
+  padding: 10px 0px 0px 20px;
+}
+
+#count p,
+h2 {
+  padding-bottom: 10px;
+}
+
+.weight600 {
+  font-weight: 600;
+}
+
+/*SECTION LISt*******************/
+#student_list {
+  border-left: 1px solid black;
+  padding: 10px 0px 0px 20px;
+}
+
+#list {
+  width: 90vw;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* #popop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .8);
+  cursor: pointer;
+  /* display: none; */
+/* overflow: scroll; */
+/* } */
+
+/* #popop_artikel {
+  position: fixed;
+ left: 25em;
+  top: 0em;
+  width 80vw;
+  height: 80vh;
+  margin: 4rem auto;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+} */
+
+/* #luk {
+  position: fixed;
+  top: 4em;
+  right: 20em;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  padding: 0.8em 1em;
+  font-family: helvetica, "sans serif";
+  font-size: 1em;
+} */
+
+/*******MODAL*******/
+/* #modal { 
+  /* Styling af popup element */
+/* background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  z-index: 300;
+}
+
+#modal article {
+  /* Flex er brugt i popup, så tekst og billeder er på hver sin side */
+/* display: flex;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  height: auto;
+  background-color: #fff;
+  margin: 4rem auto;
+  box-shadow: 0px 0px 30px -4px rgba(0, 0, 0, 0.3);
+  position: fixed;
+} */
+/* 
+#modal p {
+  margin-bottom: 10px;
+} */
+
+/* #modal h2 {
+  margin-bottom: 20px;
+} */
+
+/* @media screen and (max-width: 850px) {
+  #modal article {
+    display: flex;
+    width: 90%;
+    height: auto;
+    background-color: #fff;
+    margin-left: 0px;
+    margin-right: 50px;
+    margin-bottom: 0;
+    box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.8);
+  }
+
+  #modal .column {
+    padding: 0px;
+    flex-basis: 200px;
+    flex-grow: 1;
+  }
+} */
+
+/* @media screen and (max-width: 768px) {
+  #modal article {
+    display: block;
+    position: absolute;
+    overflow: scroll;
+  }
+
+  #close {
+    top: 0.2em;
+    right: 0.5em;
+  }
+} */

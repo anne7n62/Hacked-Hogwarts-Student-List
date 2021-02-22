@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" type = "text/css" href = "styles.css" />
+    <title>Hogwarts student list</title>
+</head>
+<body>
+
+  <header>
+    <div id="logo"><img src="address.png" alt="logo"></div>
+    <div id="header_title"><h1>Hogwarts Student List</h1></div>
+  </header>
+
+  <!-- This is the navigation with the filter and sort drop downs -->
+  <nav>
+    <select id="house">
+      <option value="house">House</option>
+      <option value="gryffindor">Gryffindor</option>
+      <option value="hufflepop">Hufflepop</option>
+      <option value="ravenclaw">Ravenclaw</option>
+      <option value="slytherin">Slytherin</option>  
+    </select>
+
+    <select id="enrolment">
+      <option value="enrolment">Enrolment</option>
+      <option value="enrolled">Enrolled</option>
+      <option value="expelled">Expelled</option>
+    </select>
+
+    <select id="other">
+      <option value="Other">Other</option>
+      <option value="prefect">Prefect</option>
+      <option value="squas">Inquisitorial squad</option>
+    </select>
+
+    <select id="sort">
+      <option value="sort">Sort by</option>
+      <option value="sort_firstname">Firstname</option>
+      <option value="sort_lastname">Lastname</option>
+      <option value="sort_gender">Gender</option>
+      <option value="sort_blood">Blood status</option>
+    </select>
+
+    <button>Search</button>
+
+  </nav>
+
+<!-- Here is the main with the count and studentlist section -->
+  <main>
+    <section id="count">
+      <h2>Student list details</h2>
+      <p class="weight600">Gryffendor:</p><p class=""></p>
+      <p class="weight600">Hufflepuff:</p><p class=""></p>
+      <p class="weight600">Ravenclaw:</p><p class=""></p>
+      <p class="weight600">Slytherin:</p><p class=""></p>
+      <p class="weight600">Current:</p><p class=""></p>
+      <p class="weight600">Expelled:</p><p class=""></p>
+      <p class="weight600">Currently displayed:</p><p class=""></p>
+      
+    </section>
+    <section id="list">
+    </section>
+
+    <template id="hogwarts_student">
+     <article>
+        <p data-field="firstname">firstname</p>
+        <p data-field="lastname">lastname<p>
+        <p data-field="middlename">middlename</p>
+        <p data-field="nickname">nickname</p>
+        <p data-field="gender">gender</p>
+        <p data-field="house">house</p>
+        <p data-field="image"><img sr=""></td>
+        </article> 
+    </template>
+    </section>
+
+  </main>
+
+
+ <!-- <section id="popop">
+    <div id="popop_artikel">
+        <div id="luk">X</div>
+
+        <p data-field="firstname">firstname</p>
+        <p data-field="lastname">lastname<p>
+     
+        <div class="popop_kolonne">
+           
+        </div> -->
+ 
+
+
+<!-- Here is the modal html
+  <section id="modal">
+    <article>
+        <div id="close">x</div>
+        <div class="column img">
+            <img src="moldaviskfiskesuppe-sm.jpg" alt="" class="modal_img">
+        </div>
+        <div class="column">
+            <div class="text-modal">
+              <template id="hogwarts_student"></template>
+              <h2 data-field="fullname"></h2>  
+                  <p data-field="firstname">firstname<p>
+                  <p data-field="middlename">middlename<p>
+                  <p data-field="house">house<p>
+                  <p data-field="nickname">nickname<p>
+                  <p data-field="gender">gender<p>
+                  <p data-field="blood">blood<p>
+              </template>
+                 
+              
+              <p class="popupPrefect">Prefect:</p>
+              <p class="popupMember">Member of inquisitorial squad:</p>
+              <p class="popupExpelled">Expelled:</p>
+        
+                <div class="modal_logo"><img src="address.png"></div>
+            </div>  -->
+
+    <script src="script2.js"></script>
+</body>
+</html>

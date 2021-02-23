@@ -2,29 +2,31 @@
 
 window.addEventListener("DOMContentLoaded", start);
 
-let filter = "all";
+let allStudents = []; //Creating empty array
 
-//Creating empty array
-const allStudents = [];
-
-//Creating the prototype (template)
-const Student = {
+const Student = { //Creating the prototype template
   firstname: "",
   lastname: "",
-  middlename: "",
-  nickname: "",
+  middlename: "null",
+  nickname: "null",
   gender: "",
   house: "",
+  imageSrc: "null"
 };
 
 function start() {
   console.log("ready");
-
+  registerButtons();
   loadJSON();
 }
 
-//Fetching json data
-function loadJSON() {
+function registerButtons() {
+  document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
+
+  document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
+}
+
+function loadJSON() { //Fetching json data
   fetch("https://petlatkea.dk/2021/hogwarts/students.json")
     .then(response => response.json())
     .then(jsonData => {
@@ -128,9 +130,70 @@ function prepareObjects(jsonData) {
   });
   //Calling the function displayList
   displayList();
+} 
+
+function selectFilter(event) {
+  const filter = event.target.dataset.filter;
+  console.log(`User selected ${filter}`);
+  filterList(filter);
 }
 
-function displayList() {
+function filterList(filterBy) {
+  let filteredList = allStudents;
+  if (filterBy === "gryffindor") {
+  //create a filter of only cats
+  filteredList = allStudents.filter(isGryf);
+  } else if (filterBy === "hufflepuff") {
+  filteredList = allStudents.filter(isHuff);
+}
+  displayList(filteredList); 
+}
+
+function isGryf(student) {
+  return student.house === "gryffindor";
+}
+
+function isHuff(student) {
+  return student.house === "hufflepuff";
+}
+
+function selectSort(event) {
+  const sortBy = event.target.dataset.sort;
+  const sortDir = event.target.dataset.sortDirection;
+  
+  // toggle the direction!
+  if (sortDir === "asc") {
+      event.target.dataset.sortDirection = "desc";
+  } else {
+      event.target.dataset.sortDirection = "asc";
+  }
+  console.log(`User selected ${sortBy} - ${sortDir}`);
+    sortList(sortBy, sortDir);
+}
+
+function sortList(sortBy, sortDir) {
+  let sortedList = allStudents;
+  let direction = 1; // 1 is normal direction.
+  if(sortDir === "desc") {
+      direction = -1;
+  } else {
+      direction: 1;
+  }
+
+      sortedList = sortedList.sort(sortByProperty);
+
+  function sortByProperty(studentA,studentB) {
+   console.log(`sortBy is ${sortBy}`);
+      if (studentA[sortBy] < studentB[sortBy]) {
+          return -1 * direction;
+      } else {
+          return 1 * direction;
+      }
+  }
+  displayList(sortedList); 
+}
+
+function displayList(student) {
   //Clear the list
   document.querySelector("#list").innerHTML = "";
 
@@ -160,6 +223,9 @@ function displayStudent(student) {
 //   //When u click on a student the modal will pop up
 //   clone.querySelector("article").addEventListener("click", () => visDetaljer(student));
 }
+
+
+
 
 // // function showStudentModal(student) {
 // //     console.log(student);
@@ -192,5 +258,4 @@ function displayStudent(student) {
 // function addEventListenersToButtons() {
 //     document.querySelectorAll(".filter").forEach((btn) => {
 //         btn.addEventListener("click", filterBTNs);
-//     });
-// }
+//     })

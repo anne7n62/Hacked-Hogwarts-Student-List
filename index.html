@@ -19,11 +19,11 @@
   <!-- This is the navigation with the filter and sort drop downs -->
   <nav>
     <select id="house">
-      <option value="house">House</option>
-      <option value="gryffindor">Gryffindor</option>
-      <option value="hufflepop">Hufflepop</option>
-      <option value="ravenclaw">Ravenclaw</option>
-      <option value="slytherin">Slytherin</option>  
+      <option class="filter" data-action="filter" data-filter="house">House</option>
+      <option class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</option>
+      <option class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</option>
+      <option class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</option>
+      <option class="filter" data-action="filter" data-filter="slytherin">Slytherin</option>  
     </select>
 
     <select id="enrolment">
@@ -38,12 +38,12 @@
       <option value="squas">Inquisitorial squad</option>
     </select>
 
-    <select id="sort">
-      <option value="sort">Sort by</option>
-      <option value="sort_firstname">Firstname</option>
-      <option value="sort_lastname">Lastname</option>
-      <option value="sort_gender">Gender</option>
-      <option value="sort_blood">Blood status</option>
+    <select id="sorting">
+      <option data-action="sort" data-sort-direction="asc" data-sort="sort">Sort by</option>
+      <option data-action="sort" data-sort-direction="asc" data-sort="firstname">Firstname</option>
+      <option data-action="sort" data-sort-direction="asc" data-sort="lastname">Lastname</option>
+      <option data-action="sort" data-sort-direction="asc" data-sort="gender">Gender</option>
+      <option data-action="sort" data-sort-direction="asc" data-sort="blood">Blood status</option>
     </select>
 
     <button>Search</button>

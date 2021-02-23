@@ -129,7 +129,7 @@ function prepareObjects(jsonData) {
     allStudents.push(singleStudent);
   });
   //Calling the function displayList
-  displayList();
+  displayList(allStudents);
 } 
 
 function selectFilter(event) {
@@ -140,21 +140,34 @@ function selectFilter(event) {
 
 function filterList(filterBy) {
   let filteredList = allStudents;
-  if (filterBy === "gryffindor") {
+    if (filterBy === "gryffindor") {
   //create a filter of only cats
   filteredList = allStudents.filter(isGryf);
-  } else if (filterBy === "hufflepuff") {
+    } else if (filterBy === "hufflepuff") {
   filteredList = allStudents.filter(isHuff);
+    } else if (filterBy  === "ravenclaw") {
+  filteredList = allStudents.filter(isRave);
+    }else if (filterBy  === "slytherin") {
+  filteredList = allStudents.filter(isSlyt);
 }
+console.table(filteredList);
   displayList(filteredList); 
 }
 
-function isGryf(student) {
-  return student.house === "gryffindor";
+function isGryf(house) {
+  return house.house === "Gryffindor";
 }
 
-function isHuff(student) {
-  return student.house === "hufflepuff";
+function isHuff(house) {
+  return house.house === "Hufflepuff";
+}
+
+function isRave(house) {
+  return house.house === "Ravenclaw";
+}
+
+function isSlyt(house) {
+  return house.house === "Slytherin";
 }
 
 function selectSort(event) {
@@ -177,7 +190,7 @@ function sortList(sortBy, sortDir) {
   if(sortDir === "desc") {
       direction = -1;
   } else {
-      direction: 1;
+      direction= 1;
   }
 
       sortedList = sortedList.sort(sortByProperty);
@@ -193,12 +206,12 @@ function sortList(sortBy, sortDir) {
   displayList(sortedList); 
 }
 
-function displayList(student) {
+function displayList(studentList) {
   //Clear the list
   document.querySelector("#list").innerHTML = "";
 
   //Build a new list
-  allStudents.forEach(displayStudent);
+  studentList.forEach(displayStudent);
 }
 
 function displayStudent(student) {

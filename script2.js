@@ -149,7 +149,6 @@ function setFilter(filter) {
   buildList()
 }
 
-
 function filterList(filteredList) {
   //let filteredList = allStudents;
     if (settings.filterBy === "gryffindor") {
@@ -184,6 +183,15 @@ function isSlyt(house) {
 function selectSort(event) {
   const sortBy = event.target.dataset.sort;
   const sortDir = event.target.dataset.sortDirection;
+
+  //TO DO: FÅ SORTING PILE TIL AT VIRKE
+  
+  //  //find "old" sortby element, and remove .sortBy
+  //  const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
+  //  oldElement.classList.remove("sortby");
+
+  //  //indicate active sort
+  //  event.target.classList.add("sortby");
   
   // toggle the direction!
   if (sortDir === "asc") {
@@ -251,47 +259,28 @@ function displayStudent(student) {
   clone.querySelector("[data-field=gender]").textContent = student.gender;
   clone.querySelector("[data-field=house]").textContent = student.house;
   clone.querySelector("[data-field=image] img").src = `images/${student.lastName}_${student.firstName.charAt(0)}.png`;
+  
+  //tilføj klik til popop modal
+  clone.querySelector("article").addEventListener("click", function() {
+    displayModal(student);
+  });
 
   //Append clone to list
   document.querySelector("#list").appendChild(clone);
-
-  //TODO: FÅ POP OP TIL AT VIRKE
-//   //When u click on a student the modal will pop up
-//   clone.querySelector("article").addEventListener("click", () => visDetaljer(student));
 }
 
+function displayModal(student) {
+  const modal = document.querySelector("#modal");
+  const modalBg = document.querySelector(".modal-bg");
+  modalBg.classList.remove("hide");
 
+  modal.querySelector("#close").addEventListener("click", closeModal);
 
+  function closeModal() {
+    modalBg.classList.add("hide");
+    modal.querySelector("#close").removeEventListener("click", closeModal);
+    //removeEventListeners();
+  }
+}
 
-// // function showStudentModal(student) {
-// //     console.log(student);
-// //     const modal = document.querySelector("#modal");
-
-// //     modal.querySelector("[data-field=firstname]").textContent = student.firstname;
-// //     modal.querySelector("[data-field=lastname]").textContent = student.lastname;
-// //     modal.querySelector("[data-field=middlename]").textContent = student.middlename;
-// //     modal.querySelector("[data-field=nickname]").textContent = student.nickname;
-// //     modal.querySelector("[data-field=gender]").textContent = student.gender;
-// //     modal.querySelector("[data-field=house]").textContent = student.house;
-
-    
-
-// // }
-// const popop = document.querySelector("#popop");
-
-// function visDetaljer(ret) {
-//     console.log(ret);
-    
-//     modal.querySelector("[data-field=firstname]").textContent = student.firstName;
-//     modal.querySelector("[data-field=middlename]").textContent = student.middleName;
-//     popop.style.display = "block";
-
-
-// }
-
-// document.querySelector("#luk").addEventListener("click", () => popop.style.display = "none");
-
-// function addEventListenersToButtons() {
-//     document.querySelectorAll(".filter").forEach((btn) => {
-//         btn.addEventListener("click", filterBTNs);
-//     })
+ 

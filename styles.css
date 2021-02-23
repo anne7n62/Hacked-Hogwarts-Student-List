@@ -59,6 +59,20 @@ select {
   border-right: 1px solid black;
 }
 
+/*SORTING************************/
+
+#sorting option.sortby {
+  text-decoration: underline;
+}
+
+#sorting option.sortby[data-sort-direction="asc"]::after {
+  content: "↓";
+}
+
+#sorting option.sortby[data-sort-direction="desc"]::after {
+  content: "↑";
+}
+
 /*MAIN***************************/
 main {
   display: grid;
@@ -108,110 +122,35 @@ article p {
   line-height: 20px;
 }
 
-/* #popop {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, .8);
-  cursor: pointer;
-  /* display: none; */
-/* overflow: scroll; */
-/* } */
-
-/* #popop_artikel {
-  position: fixed;
- left: 25em;
-  top: 0em;
-  width 80vw;
-  height: 80vh;
-  margin: 4rem auto;
-  border-radius: 10px;
-  background-color: white;
+.modal-bg {
   display: flex;
-  flex-direction: column;
-  padding: 10px;
-
-} */
-
-/* #luk {
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
   position: fixed;
-  top: 4em;
-  right: 20em;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+#modal {
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: space-around;
+  width: 90%;
+  height: 70%;
+  margin: auto;
   background-color: white;
   color: black;
-  border-radius: 5px;
-  padding: 0.8em 1em;
-  font-family: helvetica, "sans serif";
-  font-size: 1em;
-} */
-
-/*******MODAL*******/
-/* #modal { 
-  /* Styling af popup element */
-/* background-color: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 20px;
-  width: 100vw;
-  height: 100vh;
-  display: none;
-  z-index: 300;
 }
 
-#modal article {
-  /* Flex er brugt i popup, så tekst og billeder er på hver sin side */
-/* display: flex;
-  top: 43%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 65%;
-  height: auto;
-  background-color: #fff;
-  margin: 4rem auto;
-  box-shadow: 0px 0px 30px -4px rgba(0, 0, 0, 0.3);
-  position: fixed;
-} */
-/* 
-#modal p {
-  margin-bottom: 10px;
-} */
+#close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+}
 
-/* #modal h2 {
-  margin-bottom: 20px;
-} */
-
-/* @media screen and (max-width: 850px) {
-  #modal article {
-    display: flex;
-    width: 90%;
-    height: auto;
-    background-color: #fff;
-    margin-left: 0px;
-    margin-right: 50px;
-    margin-bottom: 0;
-    box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.8);
-  }
-
-  #modal .column {
-    padding: 0px;
-    flex-basis: 200px;
-    flex-grow: 1;
-  }
-} */
-
-/* @media screen and (max-width: 768px) {
-  #modal article {
-    display: block;
-    position: absolute;
-    overflow: scroll;
-  }
-
-  #close {
-    top: 0.2em;
-    right: 0.5em;
-  }
-} */
+.hide {
+  display: none;
+}

@@ -81,46 +81,56 @@
 
   </main>
 
-
- <!-- <section id="popop">
-    <div id="popop_artikel">
-        <div id="luk">X</div>
-
-        <p data-field="firstname">firstname</p>
-        <p data-field="lastname">lastname<p>
-     
-        <div class="popop_kolonne">
-           
-        </div> -->
- 
-
-
-<!-- Here is the modal html
-  <section id="modal">
-    <article>
-        <div id="close">x</div>
-        <div class="column img">
-            <img src="moldaviskfiskesuppe-sm.jpg" alt="" class="modal_img">
+  <div id="student-modal" class="modal-bg hide" data-enrolmentstatus="enrolled">
+    <div id="modal" data-house="Gryffindor">
+      <div id="modal-header">
+        <div id="student-photo">
+          <img src="assets/images/potter_h.png" alt="Student Photo" />
         </div>
-        <div class="column">
-            <div class="text-modal">
-              <template id="hogwarts_student"></template>
-              <h2 data-field="fullname"></h2>  
-                  <p data-field="firstname">firstname<p>
-                  <p data-field="middlename">middlename<p>
-                  <p data-field="house">house<p>
-                  <p data-field="nickname">nickname<p>
-                  <p data-field="gender">gender<p>
-                  <p data-field="blood">blood<p>
-              </template>
-                 
-              
-              <p class="popupPrefect">Prefect:</p>
-              <p class="popupMember">Member of inquisitorial squad:</p>
-              <p class="popupExpelled">Expelled:</p>
-        
-                <div class="modal_logo"><img src="address.png"></div>
-            </div>  -->
+        <h1 id="student-name">Harry James Potter</h1>
+        <div id="housecrest">
+          <img src="assets/Gryffindor.png" alt="House Crest" />
+        </div>
+        <div id="close">X</div>
+      </div>
+      <div id="modal-body">
+        <div id="base-info">
+          <p>First Name:</p>
+          <p id="first-name" class="base-info-names">Harry</p>
+          <p id="middle-title">Middle Name:</p>
+          <p id="middle-name" class="base-info-names">James</p>
+          <p id="nick-title">Nickname:</p>
+          <p id="nickname" class="base-info-names">Potty</p>
+          <p id="last-title">Last Name:</p>
+          <p id="last-name" class="base-info-names">Potter</p>
+          <p>Gender:</p>
+          <p id="gender" class="base-info-names">Girl</p>
+          <p>Blood Status:</p>
+          <p id="blood-status" class="base-info-names">Pure-Blood</p>
+        </div>
+        <div id="additional-info">
+          <div id="prefect-status" data-prefect="true">
+            <p>This student is not a prefect</p>
+            <button id="prefect-button" data-prefect="true">
+              Promote to Prefect
+            </button>
+          </div>
+          <div id="squad-status" data-squad="true">
+            <p>This student is not a member of the inquisitorial squad</p>
+            <button id="squad-button" data-squad="true">
+              Grant Membership
+            </button>
+          </div>
+          <div id="enrolled-status" data-enrolled>
+            <p>This student is currently enrolled at Hogwarts</p>
+            <button id="enrollment-button" data-enrolled="true">
+              Expel Student
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <script src="script2.js"></script>
 </body>

@@ -14,6 +14,12 @@ const Student = { //Creating the prototype template
   imageSrc: "null"
 };
 
+const settings = {
+  filter: "all",
+  sortBy: "name",
+  sortDir: "asc"
+}
+
 function start() {
   console.log("ready");
   registerButtons();
@@ -135,23 +141,28 @@ function prepareObjects(jsonData) {
 function selectFilter(event) {
   const filter = event.target.dataset.filter;
   console.log(`User selected ${filter}`);
-  filterList(filter);
+  setFilter(filter);
 }
 
-function filterList(filterBy) {
-  let filteredList = allStudents;
-    if (filterBy === "gryffindor") {
+function setFilter(filter) {
+  settings.filterBy = filter; 
+  buildList()
+}
+
+
+function filterList(filteredList) {
+  //let filteredList = allStudents;
+    if (settings.filterBy === "gryffindor") {
   //create a filter of only cats
   filteredList = allStudents.filter(isGryf);
-    } else if (filterBy === "hufflepuff") {
+    } else if (settings.filterBy === "hufflepuff") {
   filteredList = allStudents.filter(isHuff);
-    } else if (filterBy  === "ravenclaw") {
+    } else if (settings.filterBy  === "ravenclaw") {
   filteredList = allStudents.filter(isRave);
-    }else if (filterBy  === "slytherin") {
+    }else if (settings.filterBy  === "slytherin") {
   filteredList = allStudents.filter(isSlyt);
 }
-console.table(filteredList);
-  displayList(filteredList); 
+  return filteredList; 
 }
 
 function isGryf(house) {
@@ -181,13 +192,19 @@ function selectSort(event) {
       event.target.dataset.sortDirection = "asc";
   }
   console.log(`User selected ${sortBy} - ${sortDir}`);
-    sortList(sortBy, sortDir);
+    setSort(sortBy, sortDir);
 }
 
-function sortList(sortBy, sortDir) {
-  let sortedList = allStudents;
+function setSort(sortBy, sortDir) {
+  settings.sortBy = sortBy;
+  settings.sortDir = sortDir;
+  buildList();
+}
+
+function sortList(sortedList) {
+  //let sortedList = allStudents;
   let direction = 1; // 1 is normal direction.
-  if(sortDir === "desc") {
+  if(settings.sortDir === "desc") {
       direction = -1;
   } else {
       direction= 1;
@@ -196,14 +213,20 @@ function sortList(sortBy, sortDir) {
       sortedList = sortedList.sort(sortByProperty);
 
   function sortByProperty(studentA,studentB) {
-   console.log(`sortBy is ${sortBy}`);
-      if (studentA[sortBy] < studentB[sortBy]) {
+      if (studentA[settings.sortBy] < studentB[settings.sortBy]) {
           return -1 * direction;
       } else {
           return 1 * direction;
       }
   }
-  displayList(sortedList); 
+  return sortedList; 
+}
+
+function buildList() {
+  const currentList = filterList(allStudents);
+  const sortedList = sortList(currentList);
+
+  displayList (sortedList);
 }
 
 function displayList(studentList) {

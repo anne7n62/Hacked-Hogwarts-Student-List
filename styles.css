@@ -17,6 +17,10 @@ h2 {
   font-size: 25px;
 }
 
+p {
+  font-size: 15px;
+}
+
 /*HEADER*************************/
 
 header {
@@ -53,7 +57,7 @@ select {
   color: #0a0a0a;
   padding: 2px 0px 2px 0px;
   text-align: center;
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
   border: 0px solid #0a0a0a;
   background-color: rgba(36, 30, 30, 0.06);
   border-right: 1px solid black;
@@ -77,6 +81,7 @@ select {
 main {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  background-color: rgb(218, 209, 194);
 }
 
 /*SECTION COUNT******************/
@@ -96,7 +101,7 @@ h2 {
 /*SECTION LISt*******************/
 
 #list {
-  max-width: 1100px;
+  //max-width: 1100px;
   margin: 0 auto;
   display: grid;
   grid-gap: 20px;
@@ -106,21 +111,63 @@ h2 {
   padding: 10px 0px 0px 20px;
 }
 
+#list {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 5fr));
+
+  border-left: 1px solid black;
+  padding: 10px 0px 0px 20px;
+}
+
+/***************************/
+
 article {
-  width: 280px;
-  height: 250px;
-  background-color: #f5d9d9;
+  width: 250px;
+  margin: 25px;
+
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 10px 90px -13px rgba(209, 209, 209, 1);
 }
 
 article img {
-  width: 200px;
-  width: 150px;
+  width: 80%;
+  margin: 0px 0px 15px 0px;
+}
+
+article h2 {
+  font-size: 16px;
+  margin: 10px 0;
+  background-color: #232c5c;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+  margin-top: -5px;
 }
 
 article p {
+  font-family: "Open Sans", sans-serif;
   color: black;
   line-height: 20px;
 }
+
+/* article {
+  border: 1px black solid;
+  align-content: center;
+}
+
+/* article img {
+  width: 200px;
+  width: 150px;
+} */
+
+/* article p {
+  color: black;
+  line-height: 20px;
+} */
 
 .modal-bg {
   display: flex;
@@ -143,6 +190,81 @@ article p {
   background-color: white;
   color: black;
 }
+#modal-header {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 25%;
+  background-color: red;
+  color: black;
+  margin-top: 0;
+  border: 5px solid red;
+  border-bottom: none;
+}
+#student-photo,
+#housecrest {
+  height: 80%;
+}
+
+#housecrest img,
+#student-photo img {
+  width: 100%;
+  height: 100%;
+}
+
+#modal-body {
+  display: flex;
+  margin-top: 0;
+  height: 75%;
+}
+
+#modal-body button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: 1px solid black;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+#modal-body button:hover {
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 255, 0.2);
+}
+
+#base-info {
+  width: 40%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: auto;
+  font-size: 1.1rem;
+  margin-left: 5rem;
+  border-right: 1px solid var(--primary-color);
+}
+
+.base-info-names,
+#base-info p {
+  margin: 0.8rem 0 0.8rem 0;
+}
+
+.base-info-names {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+#additional-info {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+  font-size: 1.1rem;
+  margin-left: 5rem;
+  line-height: 1.8rem;
+}
+
+#additional-info div {
+  margin: 1rem 0 1rem 0;
+}
 
 #close {
   position: absolute;
@@ -153,4 +275,22 @@ article p {
 
 .hide {
   display: none;
+}
+
+/* POPUP HOUSES - STYLING */
+
+.popupGryffindor article {
+  background-color: #d33d3d;
+}
+
+.popupSlytherin article {
+  background-color: #4b9b66;
+}
+
+.popupRavenclaw article {
+  background-color: #4960ac;
+}
+
+.popupHufflepuff article {
+  background-color: #f1de6f;
 }

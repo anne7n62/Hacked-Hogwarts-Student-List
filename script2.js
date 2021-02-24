@@ -11,6 +11,7 @@ const Student = { //Creating the prototype template
   nickname: "null",
   gender: "",
   house: "",
+  enrollment: true,
   imageSrc: "null"
 };
 
@@ -30,6 +31,7 @@ function registerButtons() {
   document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
 
   document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
+
 }
 
 function loadJSON() { //Fetching json data
@@ -135,7 +137,8 @@ function prepareObjects(jsonData) {
     allStudents.push(singleStudent);
   });
   //Calling the function displayList
-  displayList(allStudents);
+  buildList();
+  //displayList(allStudents);
 } 
 
 function selectFilter(event) {
@@ -149,6 +152,7 @@ function setFilter(filter) {
   buildList()
 }
 
+
 function filterList(filteredList) {
   //let filteredList = allStudents;
     if (settings.filterBy === "gryffindor") {
@@ -160,8 +164,20 @@ function filterList(filteredList) {
   filteredList = allStudents.filter(isRave);
     }else if (settings.filterBy  === "slytherin") {
   filteredList = allStudents.filter(isSlyt);
+}else if (settings.filterBy  === "enrolled") {
+  filteredList = allStudents.filter(isEnrolled);
+}else if (settings.filterBy  === "expelled") {
+  filteredList = allStudents.filter(isExpelled);
 }
   return filteredList; 
+}
+
+function isEnrolled(status) {
+  return status.house === "Enrolled";
+}
+
+function isExpelled(status) {
+  return status.house === "Expelled";
 }
 
 function isGryf(house) {
@@ -253,17 +269,20 @@ function displayStudent(student) {
 
   //Set clone data
   clone.querySelector("[data-field=firstname]").textContent = student.firstName;
-  clone.querySelector("[data-field=middlename]").textContent = student.middleName;
-  clone.querySelector("[data-field=lastname]").textContent = student.lastName;
-  clone.querySelector("[data-field=nickname]").textContent = student.nickName;
-  clone.querySelector("[data-field=gender]").textContent = student.gender;
-  clone.querySelector("[data-field=house]").textContent = student.house;
-  clone.querySelector("[data-field=image] img").src = `images/${student.lastName}_${student.firstName.charAt(0)}.png`;
+  clone.querySelector("[data-field=lastname]").textContent = student.lastName; 
+  clone.querySelector("[data-field=gender]").textContent = `Gender: ${student.gender}`;
+  clone.querySelector("[data-field=house]").textContent = `House: ${student.house}`;
   
+  if (student.enrollement === true) {
+    clone.querySelector("[data-field=enrollment]").textContent = "Status: Expelled";
+  } else {
+    clone.querySelector("[data-field=enrollment]").textContent = "Status: Enrolled";
+  }
+
+  //buildList(); //updating the list view
+
   //tilføj klik til popop modal
-  clone.querySelector("article").addEventListener("click", function() {
-    displayModal(student);
-  });
+  clone.querySelector("article").addEventListener("click", () => displayModal(student));
 
   //Append clone to list
   document.querySelector("#list").appendChild(clone);
@@ -271,16 +290,87 @@ function displayStudent(student) {
 
 function displayModal(student) {
   const modal = document.querySelector("#modal");
+  // //removing hide too see pop op modal
   const modalBg = document.querySelector(".modal-bg");
   modalBg.classList.remove("hide");
+ 
+ console.log(student);
+  console.log("open popup");
+ 
+  document.querySelector(".expelBtn").onclick = () => {expelStudent(student);};
 
+  modal.querySelector("[data-field=firstname]").textContent = `Firstname: ${student.firstName}` ;
+  modal.querySelector("[data-field=middlename]").textContent = `Middlename: ${student.middleName}`;
+  modal.querySelector("[data-field=lastname]").textContent = `Lastname: ${student.lastName}`;
+  modal.querySelector("[data-field=nickname]").textContent = `Nickname: ${student.nickName}`;
+  modal.querySelector("[data-field=gender]").textContent = `Gender: ${student.gender}`;
+  modal.querySelector("[data-field=house]").textContent = `House: ${student.house}`;
+  modal.querySelector("[data-field=image] img").src = `images/${student.lastName}_${student.firstName.charAt(0)}.png`;
+ 
+  if (student.enrollment === true) {
+    modal.querySelector("[data-field=enrollment]").textContent = "Status: Enrolled";
+    modal.querySelector(".expelBtn").textContent = "Expel student";
+  } else {
+    modal.querySelector("[data-field=enrollment]").textContent = "Status: Expelled";
+    modal.querySelector(".expelBtn").textContent = "Enroll student";
+  }
+
+  // Hvis der bliver klikket på knappen ændres student enrollment
+  //Expel student
+function expelStudent(student) {
+  console.log(student);
+  if (student.enrollment === true) {
+    console.log("Expelled");
+    student.enrollment = false;
+  } else {
+    console.log("Enroled");
+    student.enrollment = true;
+  }
+  displayModal(student);
+  
+}
+
+  
+   //Housecrests and article color change so it matches the house that the student belongs to
+
+   if (student.house === "Gryffindor") {
+    console.log("This student belongs to Gryffindor");
+    //Housecrests change so it matches the house that the student belongs to
+    modal.querySelector("#housecrest img").src = `images/Gryffindor-Crest-Outline.png`;
+
+    //Popup background color matches the house that the student belongs to
+    modal.querySelector("#modal-header").style.backgroundColor = "#d33d3d";
+  }
+
+  if (student.house === "Slytherin") {
+    console.log("This student belongs to Slytherin");
+    modal.querySelector("#housecrest img").src = `images/Slytherin-Crest-Outline.png`;
+
+    modal.querySelector("#modal-header").style.backgroundColor = "#4b9b66";
+  }
+
+  if (student.house === "Hufflepuff") {
+    console.log("This student belongs to Hufflepuff");
+    modal.querySelector("#housecrest img").src = `images/Hufflepuff-Outline.png`;
+
+    modal.querySelector("#modal-header").style.backgroundColor = "#f1de6f";
+  }
+
+  if (student.house === "Ravenclaw") {
+    console.log("This student belongs to Ravenclaw");
+    modal.querySelector("#housecrest img").src = `images/Ravenclaw-Crest-Outline.png`;
+
+    modal.querySelector("#modal-header").style.backgroundColor = "#4960ac";
+  }
+
+
+  //luk modal
   modal.querySelector("#close").addEventListener("click", closeModal);
 
   function closeModal() {
     modalBg.classList.add("hide");
     modal.querySelector("#close").removeEventListener("click", closeModal);
-    //removeEventListeners();
-  }
-}
+  
+  }}
 
- 
+

@@ -154,21 +154,6 @@ article p {
   line-height: 20px;
 }
 
-/* article {
-  border: 1px black solid;
-  align-content: center;
-}
-
-/* article img {
-  width: 200px;
-  width: 150px;
-} */
-
-/* article p {
-  color: black;
-  line-height: 20px;
-} */
-
 .modal-bg {
   display: flex;
   justify-content: center;
@@ -293,4 +278,43 @@ article p {
 
 .popupHufflepuff article {
   background-color: #f1de6f;
+}
+
+/* DIALOGUE BOXES */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.377);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog {
+  box-shadow: 3px 1px 11px #333;
+  border-radius: 12px;
+  padding: 2em;
+  background-color: cornsilk;
+  position: relative;
+}
+
+button.closebutton {
+  position: absolute;
+  right: -1em;
+  top: -1em;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+}
+
+.dialog h1 {
+  margin-top: 0;
+}
+
+.hide2 {
+  visibility: hidden;
 }

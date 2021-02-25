@@ -3,7 +3,7 @@
 window.addEventListener("DOMContentLoaded", start);
 
 let allStudents = []; //Creating empty array
-let allExpelled = []; //??
+let allExpelled = []; //make it work gurl
 
 const Student = {
   //Creating the prototype template
@@ -34,6 +34,30 @@ function registerButtons() {
   document.querySelectorAll("[data-action='filter']").forEach((button) => button.addEventListener("click", selectFilter));
 
   document.querySelectorAll("[data-action='sort']").forEach((button) => button.addEventListener("click", selectSort));
+
+  //search
+  document.querySelector(".search").addEventListener("input", startSearch);
+}
+
+function startSearch(event) {
+  let input = document.querySelector(".search").value;
+
+  let searchList = allStudents.filter((student) => {
+    let name = "";
+
+    if (student.lastName === null) {
+      name = student.firstName;
+    } else {
+      name = student.firstName + " " + student.lastName;
+    }
+
+    return name.toLowerCase().includes(event.target.value);
+  });
+
+  //Show number of students
+  let numberOfStudents = document.querySelector("#count .totalCurrent");
+  numberOfStudents.textContent = `Students: ${searchList.length}`;
+  displayList(searchList);
 }
 
 function loadJSON() {
@@ -147,6 +171,13 @@ function filterList(filteredList) {
   } else if (settings.filterBy === "expelled") {
     filteredList = allStudents.filter(isExpelled);
   }
+  
+    //showing the student numbers
+    document.querySelector(".totalGryf").textContent = allStudents.filter(isGryf).length;
+    document.querySelector(".totalRave").textContent = allStudents.filter(isRave).length;
+    document.querySelector(".totalSlyt").textContent = allStudents.filter(isSlyt).length;
+    document.querySelector(".totalHuff").textContent = allStudents.filter(isHuff).length;
+  
   return filteredList;
 }
 
@@ -241,6 +272,7 @@ function displayList(studentList) {
 
 function displayStudent(student) {
   //Create clone
+  document.querySelector(".totalEnrolled").textContent = allStudents.length;
   const clone = document.querySelector("template#hogwarts_student").content.cloneNode(true);
 
   //Set clone data
@@ -248,13 +280,7 @@ function displayStudent(student) {
   clone.querySelector("[data-field=lastname]").textContent = student.lastName;
   clone.querySelector("[data-field=gender]").textContent = `Gender: ${student.gender}`;
   clone.querySelector("[data-field=house]").textContent = `House: ${student.house}`;
-
-  if (student.enrollement === true) {
-    clone.querySelector("[data-field=enrollment]").textContent = "Status: Expelled";
-  } else {
-    clone.querySelector("[data-field=enrollment]").textContent = "Status: Enrolled";
-  }
-
+  
   //buildList(); //updating the list view
 
   //tilføj klik til popop modal
@@ -313,8 +339,16 @@ function displayModal(student) {
   //
 
   //prefects
-  modal.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
+ //toggle student enrollment
+ if (student.prefect === true) {
+  modal.querySelector("[data-field=prefectstatus]").textContent = "This student is a prefect ";
+  modal.querySelector("[data-field=prefect]").textContent = "Remove as prefect";
+} else {
+  modal.querySelector("[data-field=prefectstatus]").textContent = "This student is not a prefect";
+  modal.querySelector("[data-field=prefect]").textContent = "Make a prefect";
+}
 
+  modal.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
   modal.querySelector("[data-field=prefect]").addEventListener("click", clickPrefect);
   function clickPrefect() {
     if (student.prefect === true) {
@@ -472,4 +506,6 @@ function tryToMakeAPrefect(selectedStudent) {
     console.log("make prefect");
     student.prefect = true;
   }
+
+
 }

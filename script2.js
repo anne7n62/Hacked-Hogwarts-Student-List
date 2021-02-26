@@ -4,6 +4,7 @@ window.addEventListener("DOMContentLoaded", start);
 
 let allStudents = []; //Creating empty array
 let allExpelled = []; //make it work gurl
+let allBloodLines = [];
 
 const Student = {
   //Creating the prototype template
@@ -15,6 +16,7 @@ const Student = {
   house: "",
   enrollment: true,
   prefect: false,
+  bloodstatus: "",
   imageSrc: "null",
 };
 
@@ -26,8 +28,12 @@ const settings = {
 
 function start() {
   console.log("ready");
+  //Tilføjer eventlistener til filtrering, sortering og expel
   registerButtons();
-  loadJSON();
+
+  // Gør filer klar til load
+  loadJSON("https://petlatkea.dk/2021/hogwarts/students.json", prepareObjects);
+  loadJSON("https://petlatkea.dk/2021/hogwarts/families.json", defineBloodStatus);
 }
 
 function registerButtons() {
@@ -35,6 +41,9 @@ function registerButtons() {
 
   document.querySelectorAll("[data-action='sort']").forEach((button) => button.addEventListener("click", selectSort));
 
+  document.querySelector("[data-filter='expelled']").addEventListener("click", expelStudent);
+  // document.querySelector("[data-filter='enrolled']").addEventListener("click", showEnrolled);
+  
   //search
   document.querySelector(".search").addEventListener("input", startSearch);
 }
@@ -60,15 +69,27 @@ function startSearch(event) {
   displayList(searchList);
 }
 
-function loadJSON() {
+
+// function loadBlood() {
+  
+//   //Fetching json data
+//   fetch("https://petlatkea.dk/2021/hogwarts/families.json")
+//     .then((response) => response.json())
+//     .then((bloodData) => {
+//       //When loaded, prepare objects
+//       prepareBlood(bloodData);
+//     });
+//   console.log("blood data loaded");
+// }
+
+async function loadJSON(url, event) {
+  
   //Fetching json data
-  fetch("https://petlatkea.dk/2021/hogwarts/students.json")
-    .then((response) => response.json())
-    .then((jsonData) => {
-      //When loaded, prepare objects
-      prepareObjects(jsonData);
-    });
-  console.log("JSON data loaded");
+  const respons = await fetch(url);
+  const jsonData = await respons.json();
+  event(jsonData);
+
+  console.log("Data loaded");
 }
 
 function prepareObjects(jsonData) {
@@ -142,6 +163,20 @@ function prepareObjects(jsonData) {
   //Calling the function displayList
   buildList();
   //displayList(allStudents);
+ 
+}
+
+function defineBloodStatus(jsonData) {
+  console.log("defining bloodstatus for students");
+  allStudents.forEach((student) => {
+  if (jsonData.half.includes(student.lastName)) {
+    student.bloodstatus = "Half-Blood";
+  } else if (jsonData.pure.includes(student.lastName)) {
+    student.bloodstatus = "Pure-Blood";
+  } else {
+    student.bloodstatus = "Muggleborn"
+  }
+})
 }
 
 function selectFilter(event) {
@@ -155,6 +190,8 @@ function setFilter(filter) {
   buildList();
 }
 
+
+
 function filterList(filteredList) {
   //let filteredList = allStudents;
   if (settings.filterBy === "gryffindor") {
@@ -166,11 +203,7 @@ function filterList(filteredList) {
     filteredList = allStudents.filter(isRave);
   } else if (settings.filterBy === "slytherin") {
     filteredList = allStudents.filter(isSlyt);
-  } else if (settings.filterBy === "enrolled") {
-    filteredList = allStudents.filter(isEnrolled);
-  } else if (settings.filterBy === "expelled") {
-    filteredList = allStudents.filter(isExpelled);
-  }
+  } 
   
     //showing the student numbers
     document.querySelector(".totalGryf").textContent = allStudents.filter(isGryf).length;
@@ -179,14 +212,6 @@ function filterList(filteredList) {
     document.querySelector(".totalHuff").textContent = allStudents.filter(isHuff).length;
   
   return filteredList;
-}
-
-function isEnrolled(status) {
-  return status.house === "Enrolled";
-}
-
-function isExpelled(status) {
-  return status.house === "Expelled";
 }
 
 function isGryf(house) {
@@ -258,6 +283,8 @@ function sortList(sortedList) {
 function buildList() {
   const currentList = filterList(allStudents);
   const sortedList = sortList(currentList);
+  //added for expelled
+  // const expelledList = filterExpelled(allExpelled);
 
   displayList(sortedList);
 }
@@ -275,11 +302,11 @@ function displayStudent(student) {
   document.querySelector(".totalEnrolled").textContent = allStudents.length;
   const clone = document.querySelector("template#hogwarts_student").content.cloneNode(true);
 
-  //Set clone data
-  clone.querySelector("[data-field=firstname]").textContent = student.firstName;
-  clone.querySelector("[data-field=lastname]").textContent = student.lastName;
-  clone.querySelector("[data-field=gender]").textContent = `Gender: ${student.gender}`;
-  clone.querySelector("[data-field=house]").textContent = `House: ${student.house}`;
+  //Data cloned into listview
+  clone.querySelector("[data-field=fullname]").textContent = `${student.firstName} ${student.lastName}`;
+  clone.querySelector("[data-field=gender]").textContent = `${student.gender}`;
+  clone.querySelector("[data-field=house]").textContent = student.house;
+  clone.querySelector("[data-field=image] img").src = `images/${student.lastName}_${student.firstName.charAt(0)}.png`;
   
   //buildList(); //updating the list view
 
@@ -299,41 +326,54 @@ function displayModal(student) {
   console.log("open popup");
 
   //Når vi klikker udviser vi den studerende
-  document.querySelector(".expelBtn").onclick = () => {
-    expelStudent(student);
-  };
-
+  //document.querySelector(".expelBtn").onclick = () => {expelStudent(student); };
+  modal.querySelector("[data-field=fullname]").textContent = `${student.firstName} ${student.lastName}`
   modal.querySelector("[data-field=firstname]").textContent = `Firstname: ${student.firstName}`;
   modal.querySelector("[data-field=middlename]").textContent = `Middlename: ${student.middleName}`;
   modal.querySelector("[data-field=lastname]").textContent = `Lastname: ${student.lastName}`;
   modal.querySelector("[data-field=nickname]").textContent = `Nickname: ${student.nickName}`;
   modal.querySelector("[data-field=gender]").textContent = `Gender: ${student.gender}`;
   modal.querySelector("[data-field=house]").textContent = `House: ${student.house}`;
+  modal.querySelector("[data-field=blood]").textContent = `blood: ${student.bloodstatus}`;
   modal.querySelector("[data-field=image] img").src = `images/${student.lastName}_${student.firstName.charAt(0)}.png`;
 
   //toggle student enrollment
-  if (student.enrollment === true) {
-    modal.querySelector("[data-field=enrollment]").textContent = "Status: Enrolled";
-    modal.querySelector(".expelBtn").textContent = "Expel student";
+  // if (student.enrollment === true) {
+  //   modal.querySelector("[data-field=enrollment]").textContent = "Status: Enrolled";
+  //   modal.querySelector(".expelBtn").textContent = "Expel student";
+  // } else {
+  //   modal.querySelector("[data-field=enrollment]").textContent = "Status: Expelled";
+  //   modal.querySelector(".expelBtn").textContent = "Enroll student";
+  // }
+
+  if (student.expel === true) {
+    console.log("Enrolled");
+    student.expel = false;
   } else {
-    modal.querySelector("[data-field=enrollment]").textContent = "Status: Expelled";
-    modal.querySelector(".expelBtn").textContent = "Enroll student";
+    console.log("Expelled");
+    student.expel = true;
+
+    //remove expelled student from allStudents
+    allStudents.splice(allStudents.indexOf(student), 1);
+
+    //add the student to list of expelled student (new array)
+    allExpelled.push(student);
+    console.log("pushing the expelled student")
+
+    //buildList();
+    //displayList(expelledStudent);
   }
 
-  // Hvis der bliver klikket på knappen ændres student enrollment
-  //Expel student
-  function expelStudent(student) {
-    console.log(student);
-    if (student.enrollment === true) {
-      student.enrollment = false;
-      //showExpelledStudent(student);
-    } else {
-      console.log("Enroled");
-      student.enrollment = true;
-    }
-    displayModal(student);
-    //buildList();
+  //Button and status changes when click on btn
+  if (student.expel === true) {
+    modal.querySelector(".expelBtn").textContent = "Unexpel student";
+    //modal.querySelector(".popupExpelled").textContent = "Status: Expelled";
+  } else {
+    modal.querySelector(".expelBtn").textContent = "Expel student";
+    //modal.querySelector(".popupExpelled").textContent = "Status: Enrolled";
   }
+
+
 
   //TO DO: Hvor skal det her hen?
   //
@@ -405,9 +445,25 @@ function displayModal(student) {
   }
 }
 
-function showExpelledStudent(student) {
-  displayList(); //Hvordan viser jeg expelled?
+//Expel student
+
+function expelStudent(student) {
+  console.log(student);
+ 
+  displayList(allExpelled);
+
 }
+
+
+//function showEnrolled (student) {
+//   displayList(allStudents);
+// }
+
+// function filterExpelled (){
+//   console.log("filtering expelled/enrolled list"); 
+  
+
+// }
 
 //NY a function inside a function inside a function
 function tryToMakeAPrefect(selectedStudent) {

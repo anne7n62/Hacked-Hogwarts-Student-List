@@ -24,28 +24,37 @@ p {
 /*HEADER*************************/
 
 header {
-  padding: 20px 40px 20px 40px;
+  background-color:rgb(189, 192, 219);
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  box-shadow: 1px 1px 7px rgb(255, 225, 161);  
+}
+
+.headertitle {
+  padding: 10px 40px 10px 40px;
   display: flex;
   justify-content: space-around;
-  border-bottom: black 1px solid;
-  background-color:rgb(189, 192, 219);
+  border-bottom: rgb(255, 225, 161) 1px solid;
 }
 
 #logo img {
- width: 100%;
+  width: 100%;
   height: 90px;
-
 }
 
 #header_title {
-  /* text-transform: uppercase; */
-  padding-top: 15px;
+  padding-top: 25px;
+  color:black;
+  /* text-shadow: 4px 4px 4px rgb(255, 225, 161); */
 }
+
 
 /*NAV****************************/
 
 nav {
-  border-bottom: black 1px solid;
+  border-bottom: rgb(255, 225, 161) 1px solid;
   display: flex;
   justify-content: space-around;
 }
@@ -60,10 +69,14 @@ select {
   color: #0a0a0a;
   padding: 2px 0px 2px 0px;
   text-align: center;
-  /* -webkit-appearance: none; */
+  -webkit-appearance: none;
   border: 0px solid #0a0a0a;
-  background-color: rgba(36, 30, 30, 0.06);
-  border-right: 1px solid black;
+  background-color:rgb(189, 192, 219);
+  border-right: 1px solid rgb(255, 225, 161);
+}
+
+.search {
+  background-color:rgb(255, 225, 161);
 }
 
 /*SORTING************************/
@@ -99,7 +112,7 @@ h2 {
 
 main {
   padding: 1em 2em 1em 4em ;
- background-color: rgb(184, 184, 196);
+  background-color:rgb(189, 192, 219);
   display: flex;
   justify-content: center;
 }
@@ -154,6 +167,21 @@ article span {
   font-size:15px;
 }
 
+/*** FOOTER ***************/
+
+#count {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color:rgb(189, 192, 219);
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 50px 5px 50px;
+  box-shadow: 0px -2px 10px rgb(255, 225, 161);
+}
+
+
 /**MODAL*******/
 
 .modal-bg {
@@ -183,10 +211,10 @@ article span {
   justify-content: space-around;
   align-items: center;
   height: 25%;
-  background-color: red;
+  /* background-color: red; */
   color: black;
   margin-top: 0;
-  border: 5px solid red;
+  border: 5px solid black;
   border-bottom: none;
 }
 #student-photo,
@@ -207,8 +235,6 @@ article span {
 }
 
 #modal-body button {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
   border: 1px solid black;
   font-size: 0.8rem;
   cursor: pointer;
@@ -266,19 +292,19 @@ article span {
 
 /* POPUP HOUSES - STYLING */
 
-.popupGryffindor article {
-  background-color: #d33d3d;
+.popupGryffindor{
+  background-color: #426cf8;
 }
 
-.popupSlytherin article {
+.popupSlytherin {
   background-color: #4b9b66;
 }
 
-.popupRavenclaw article {
+.popupRavenclaw {
   background-color: #4960ac;
 }
 
-.popupHufflepuff article {
+.popupHufflepuff{
   background-color: #f1de6f;
 }
 

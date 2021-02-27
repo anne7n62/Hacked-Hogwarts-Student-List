@@ -292,7 +292,7 @@ article span {
 
 /* POPUP HOUSES - STYLING */
 
-.popupGryffindor{
+/* .popupGryffindor{
   background-color: #426cf8;
 }
 
@@ -306,7 +306,7 @@ article span {
 
 .popupHufflepuff{
   background-color: #f1de6f;
-}
+} */
 
 /* DIALOGUE BOXES */
 
@@ -320,6 +320,7 @@ article span {
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .dialog {

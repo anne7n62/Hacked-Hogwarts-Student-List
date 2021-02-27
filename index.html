@@ -15,49 +15,56 @@
 <body>
 
   <header>
-    <div id="logo"> <img src="images/Hogwards-Crest-Outline.png" alt="logo"></div>
-    <div id="header_title">
-      <h1>Hogwarts Student List</h1>
+
+    <div class="headertitle">
+      <div id="logo"> <img src="images/Hogwards-Crest-Outline.png" alt="logo"></div>
+      <div id="header_title">
+        <h1>Hogwarts Student List</h1>
+      </div>
+      <div id="logo"> <img src="images/Hogwards-Crest-Outline.png" alt="logo"></div>
     </div>
-    <div id="logo"> <img src="images/Hogwards-Crest-Outline.png" alt="logo"></div>
+
+
+    <!-- This is the navigation with the filter and sort drop downs -->
+    <nav>
+      <select id="house">
+        <option class="filter" data-action="filter" data-filter="house">House</option>
+        <option class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</option>
+        <option class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</option>
+        <option class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</option>
+        <option class="filter" data-action="filter" data-filter="slytherin">Slytherin</option>
+      </select>
+
+      <select id="enrollment">
+        <option class="filter" data-action="filter" data-filter="enrollment">Enrollment</option>
+        <option class="filter" data-action="filter" data-filter="enrolled">Enrolled</option>
+        <option class="filter" data-action="filter" data-filter="expelled">Expelled</option>
+      </select>
+
+      <select id="other">
+        <option value="Other">Other</option>
+        <option value="prefect">Prefect</option>
+        <option value="squas">Inquisitorial squad</option>
+      </select>
+
+      <select id="sorting">
+        <option data-action="sort" data-sort-direction="asc" data-sort="sort">Sort by</option>
+        <option data-action="sort" data-sort-direction="asc" data-sort="firstName">Firstname</option>
+        <option data-action="sort" data-sort-direction="asc" data-sort="lastName">Lastname</option>
+        <option data-action="sort" data-sort-direction="asc" data-sort="gender">Gender</option>
+        <option data-action="sort" data-sort-direction="asc" data-sort="blood">Blood status</option>
+        <option data-action="sort" data-sort-direction="asc" data-sort="enrollment">Enrollment</th>
+        <option data-action="sort" data-sort-direction="asc" data-sort="prefect">Prefects</option>
+      </select>
+
+      <!-- Search -->
+      <input class="search" type="search" placeholder="Search for student" />
+
+    </nav>
+
   </header>
 
-  <!-- This is the navigation with the filter and sort drop downs -->
-  <nav>
-    <select id="house">
-      <option class="filter" data-action="filter" data-filter="house">House</option>
-      <option class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</option>
-      <option class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</option>
-      <option class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</option>
-      <option class="filter" data-action="filter" data-filter="slytherin">Slytherin</option>
-    </select>
 
-    <select id="enrollment">
-      <option class="filter" data-action="filter" data-filter="enrollment">Enrollment</option>
-      <option class="filter" data-action="filter" data-filter="enrolled">Enrolled</option>
-      <option class="filter" data-action="filter" data-filter="expelled">Expelled</option>
-    </select>
-
-    <select id="other">
-      <option value="Other">Other</option>
-      <option value="prefect">Prefect</option>
-      <option value="squas">Inquisitorial squad</option>
-    </select>
-
-    <select id="sorting">
-      <option data-action="sort" data-sort-direction="asc" data-sort="sort">Sort by</option>
-      <option data-action="sort" data-sort-direction="asc" data-sort="firstName">Firstname</option>
-      <option data-action="sort" data-sort-direction="asc" data-sort="lastName">Lastname</option>
-      <option data-action="sort" data-sort-direction="asc" data-sort="gender">Gender</option>
-      <option data-action="sort" data-sort-direction="asc" data-sort="blood">Blood status</option>
-      <option data-action="sort" data-sort-direction="asc" data-sort="enrollment">Enrollment</th>
-      <option data-action="sort" data-sort-direction="asc" data-sort="prefect">Prefects</option>
-    </select>
-
-    <!-- Search -->
-    <input class="search" type="search" placeholder="Search for student" />
-
-  </nav>
 
   <!-- Here is the main with the count and studentlist section -->
   <main>
@@ -81,22 +88,26 @@
       </article>
     </template>
     </section>
-
-
-
-
   </main>
+
+
   <footer>
     <section id="count">
-      <h2>Student list details</h2>
-
-      <p>Gryffindor: <span class="totalGryf"></span></p>
-      <p>Hufflepuff: <span class="totalHuff"></span></p>
-      <p>Ravenclaw: <span class="totalRave"></span></p>
-      <p>Slytherin: <span class="totalSlyt"></span></p>
-      <p>Enrolled: <span class="totalEnrolled"></span></p>
-      <p>Expelled: <span class="totalExpelled"></span></p>
-      <p>Currently displayed: <span class="totalCurrent"></span></p>
+      <div>
+        <p>Gryffindor: <span class="totalGryf"></span></p>
+        <p>Hufflepuff: <span class="totalHuff"></span></p>
+      </div>
+      <div>
+        <p>Ravenclaw: <span class="totalRave"></span></p>
+        <p>Slytherin: <span class="totalSlyt"></span></p>
+      </div>
+      <div>
+        <p>Enrolled: <span class="totalEnrolled"></span></p>
+        <p>Expelled: <span class="totalExpelled"></span></p>
+      </div>
+      <div>
+        <p>Currently displayed: <span class="totalCurrent"></span></p>
+      </div>
 
     </section>
   </footer>

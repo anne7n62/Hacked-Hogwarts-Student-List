@@ -292,6 +292,7 @@ function displayStudent(student) {
   const clone = document.querySelector("template#hogwarts_student").content.cloneNode(true);
 
   //Set clone data
+  clone.querySelector("[data-field=image] img").src = `images/${student.lastName}_${student.firstName.charAt(0)}.png`;
   clone.querySelector("[data-field=fullname]").textContent = `${student.firstName} ${student.lastName}`;
   clone.querySelector("[data-field=gender]").textContent = `Gender: ${student.gender}`;
   clone.querySelector("[data-field=house]").textContent = `House: ${student.house}`;

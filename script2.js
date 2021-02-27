@@ -38,6 +38,10 @@ function start() {
 function registerButtons() {
   document.querySelectorAll("[data-action='filter']").forEach((button) => button.addEventListener("click", selectFilter));
 
+  document.querySelector("[data-filter='expelled']").addEventListener("click", showExpelledStudent);
+
+  //document.querySelector("[data-filter='enrolled']").addEventListener("click", showEnrolledStudent);
+
   document.querySelectorAll("[data-action='sort']").forEach((button) => button.addEventListener("click", selectSort));
 
   //search
@@ -319,6 +323,7 @@ function displayModal(student) {
     expelStudent(student);
   };
 
+  modal.querySelector("[data-field=fullname]").textContent = `${student.firstName} ${student.lastName}`;
   modal.querySelector("[data-field=firstname]").textContent = `Firstname: ${student.firstName}`;
   modal.querySelector("[data-field=middlename]").textContent = `Middlename: ${student.middleName}`;
   modal.querySelector("[data-field=lastname]").textContent = `Lastname: ${student.lastName}`;

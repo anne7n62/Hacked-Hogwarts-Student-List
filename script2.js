@@ -141,6 +141,9 @@ function prepareObjects(jsonData) {
     singleStudent.gender = singleStudent.genderCapitalized;
     singleStudent.house = singleStudent.houseCapitalized;
 
+    //images
+    singleStudent.image = (singleStudent.lastName + "_" + singleStudent.firstName.substring(0, 1) + ".png").toLowerCase();
+
     //Adding all the objects into the array
     allStudents.push(singleStudent);
   });
@@ -333,7 +336,7 @@ function displayModal(student) {
   modal.querySelector("[data-field=gender]").textContent = `Gender: ${student.gender}`;
   modal.querySelector("[data-field=house]").textContent = `House: ${student.house}`;
   modal.querySelector("[data-field=blood]").textContent = `Blood: ${student.bloodstatus}`;
-  modal.querySelector("[data-field=image] img").src = `images/${student.lastName}_${student.firstName.charAt(0)}.png`;
+  modal.querySelector("[data-field=image] img").src = `images/` + student.image;
 
   //toggle prefect button tekst
   if (student.prefect === true) {
@@ -359,7 +362,6 @@ function displayModal(student) {
 
     displayModal(student);
   }
-
   //Housecrests and article color change so it matches the house that the student belongs to
 
   if (student.house === "Gryffindor") {

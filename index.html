@@ -52,8 +52,6 @@
         <option data-action="sort" data-sort-direction="asc" data-sort="firstName">Firstname</option>
         <option data-action="sort" data-sort-direction="asc" data-sort="lastName">Lastname</option>
         <option data-action="sort" data-sort-direction="asc" data-sort="gender">Gender</option>
-        <option data-action="sort" data-sort-direction="asc" data-sort="blood">Blood status</option>
-        <option data-action="sort" data-sort-direction="asc" data-sort="enrollment">Enrollment</th>
         <option data-action="sort" data-sort-direction="asc" data-sort="prefect">Prefects</option>
       </select>
 
@@ -81,8 +79,8 @@
         </div>
         <div class="side2">
           <h2 data-field="fullname">lastname</h2>
-          <p>House: <span data-field="house">house</span></p>
-          <p>Gender: <span data-field="gender">gender</span></p>
+          <p><span data-field="house">house</span></p>
+          <p><span data-field="gender">gender</span></p>
 
         </div>
       </article>
@@ -142,7 +140,6 @@
           <p data-field="nickname">nickname</p>
           <p data-field="gender">gender</p>
           <p data-field="house">house</p>
-          <p data-field="enrollment">Enrollment</p>
           <p data-field="blood">blood</p>
         </div>
 
@@ -164,9 +161,9 @@
           </div>
 
           <div id="enrolled-status">
-            <p>This student is currently enrolled at Hogwarts</p>
+            <p data-field="bloodstatus">This student is currently enrolled at Hogwarts</p>
             <button class="expelBtn">
-              Expel
+              Expel student
             </button>
             <!-- data-enrollment="true" -->
 

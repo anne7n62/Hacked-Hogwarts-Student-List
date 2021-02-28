@@ -15,7 +15,7 @@ const Student = {
   nickname: "null",
   gender: "",
   house: "",
-  enrollment: true,
+  enrollment: false,
   prefect: false,
   bloodstatus: "",
   member: false,
@@ -39,8 +39,6 @@ function registerButtons() {
   document.querySelectorAll("[data-action='filter']").forEach((button) => button.addEventListener("click", selectFilter));
 
   document.querySelector("[data-filter='expelled']").addEventListener("click", showExpelledStudent);
-
-  //document.querySelector("[data-filter='enrolled']").addEventListener("click", showEnrolledStudent);
 
   document.querySelectorAll("[data-action='sort']").forEach((button) => button.addEventListener("click", selectSort));
 
@@ -173,6 +171,11 @@ function selectFilter(event) {
 function setFilter(filter) {
   settings.filterBy = filter;
   buildList();
+}
+
+function showExpelledStudent() {
+  console.log("Showing expelled students");
+  displayList(allExpelled);
 }
 
 function filterList(filteredList) {
@@ -312,13 +315,12 @@ function displayStudent(student) {
 
 function displayModal(student) {
   const modal = document.querySelector("#modal");
-  // //removing hide too see pop op modal
+
+  //removing hide too see pop op modal
   const modalBg = document.querySelector(".modal-bg");
   modalBg.classList.remove("hide");
 
-  console.log("open popup");
-
-  //Når vi klikker udviser vi den studerende
+  //Expel student w. click on button
   document.querySelector(".expelBtn").onclick = () => {
     expelStudent(student);
   };
@@ -333,35 +335,7 @@ function displayModal(student) {
   modal.querySelector("[data-field=blood]").textContent = `Blood: ${student.bloodstatus}`;
   modal.querySelector("[data-field=image] img").src = `images/${student.lastName}_${student.firstName.charAt(0)}.png`;
 
-  //toggle student enrollment
-  if (student.enrollment === true) {
-    modal.querySelector("[data-field=enrollment]").textContent = "Status: Enrolled";
-    modal.querySelector(".expelBtn").textContent = "Expel student";
-  } else {
-    modal.querySelector("[data-field=enrollment]").textContent = "Status: Expelled";
-    modal.querySelector(".expelBtn").textContent = "Enroll student";
-  }
-
-  // Hvis der bliver klikket på knappen ændres student enrollment
-  //Expel student
-  function expelStudent(student) {
-    console.log(student);
-    if (student.enrollment === true) {
-      student.enrollment = false;
-      //showExpelledStudent(student);
-    } else {
-      console.log("Enroled");
-      student.enrollment = true;
-    }
-    displayModal(student);
-    //buildList();
-  }
-
-  //TO DO: Hvor skal det her hen?
-  //
-
-  //prefects
-  //toggle student enrollment
+  //toggle prefect button tekst
   if (student.prefect === true) {
     modal.querySelector("[data-field=prefectstatus]").textContent = "This student is a prefect ";
     modal.querySelector("[data-field=prefect]").textContent = "Remove as prefect";
@@ -371,6 +345,8 @@ function displayModal(student) {
   }
 
   modal.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
+
+  // Ved klik - fjern som prefect eller hop til næste funktion
   modal.querySelector("[data-field=prefect]").addEventListener("click", clickPrefect);
   function clickPrefect() {
     if (student.prefect === true) {
@@ -422,16 +398,35 @@ function displayModal(student) {
   function closeModal() {
     modalBg.classList.add("hide");
     modal.querySelector("#close").removeEventListener("click", closeModal);
-
-    //TO DO? remove all eventlisteners
   }
 }
 
-function showExpelledStudent(student) {
-  displayList(); //Hvordan viser jeg expelled?
+function expelStudent(student) {
+  console.log(student);
+  if (student.enrollment === true) {
+    student.enrollment = false;
+    console.log("true");
+  } else {
+    student.enrollment = false;
+    console.log("false");
+
+    //remove expelled student from allStudents
+    allStudents.splice(allStudents.indexOf(student), 1);
+
+    //add the student to list of expelled student (new array)
+    allExpelled.push(student);
+
+    buildList();
+  }
+  if (student.enrollment === false) {
+    modal.querySelector("[data-field=bloodstatus]").textContent = "This student is expelled from Hogwarts ";
+    modal.querySelector(".expelBtn").textContent = "Enroll student";
+  } else {
+    modal.querySelector("[data-field=bloodstatus]").textContent = "This student is currently enrolled at Hogwarts";
+    modal.querySelector(".expelBtn").textContent = "Expel student";
+  }
 }
 
-//NY a function inside a function inside a function
 function tryToMakeAPrefect(selectedStudent) {
   console.log("we are in the tryToMake function");
 
@@ -445,7 +440,7 @@ function tryToMakeAPrefect(selectedStudent) {
 
   // if there is another of the same type
   if (other !== undefined) {
-    console.log("there can be only one prefect of each type");
+    console.log("there can be only two prefect of each house");
     removeOther(other);
   } else if (numbersOfPrefects >= 2) {
     console.log("there can only be two prefects");
@@ -505,16 +500,14 @@ function tryToMakeAPrefect(selectedStudent) {
       removePrefect(prefectA);
       makePrefect(selectedStudent);
       buildList();
-      //displayModal(student);
       closeDialog();
     }
 
     function clickRemoveB() {
       //else - if removeB
-      removePrefect(winnerB);
+      removePrefect(prefectB);
       makePrefect(selectedStudent);
       buildList();
-      //displayModal(student);
       closeDialog();
     }
   }
@@ -528,4 +521,33 @@ function tryToMakeAPrefect(selectedStudent) {
     console.log("make prefect");
     student.prefect = true;
   }
+}
+
+//Hacking the system
+
+function hackTheSystem() {
+  isHacked = true;
+  console.log("The system is hacked");
+  changeLooks();
+  addMeToStudentList();
+  //Mess with squad and bloodtypes are missing
+}
+
+function changeLooks() {
+  document.querySelector("h1").classList.add("hacked");
+  document.querySelector("body").classList.add("hacked");
+}
+
+function addMeToStudentList() {
+  const me = Object.create(Student);
+
+  me.firstName = "Annemette";
+  me.lastName = "Haarh";
+  me.middleName = "Mygind";
+  me.gender = "Girl";
+  me.house = "Gryffindor";
+  me.blood = "Half-blood";
+  //me.photo = "images/me_hogwarts.png";
+  allStudents.push(me);
+  buildList();
 }
